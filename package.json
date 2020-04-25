@@ -1,8 +1,16 @@
 {
   "name": "bokal-sourage",
   "version": "0.0.1",
-  "description": "localStorage manager. get/set/wipe/remove/watch values, subscribe/publish messages in scoped namespace.",
-  "keywords": ["localStorage", "watch", "subscribe", "publish", "scoped", "manager"],
+  "description": "localStorage manager with JSON parse/stringify serialization. get/set/watch/wipe values, subscribe/publish messages in scoped namespace.",
+  "keywords": [
+    "localStorage",
+    "watch",
+    "subscribe",
+    "publish",
+    "scoped",
+    "manager",
+    "serialize"
+  ],
   "main": "bokalSourage.js",
   "scripts": {
     "test": "echo \"No test specified\""
