@@ -1,9 +1,8 @@
 const ls = window.localStorage;
 
 export default class BokalSourage {
-  _cbs = {};
-
   constructor (prefix) {
+    this._cbs = {};
     this.prefix = prefix;
 
     window.addEventListener('storage', (e) => {
