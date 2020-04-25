@@ -1,0 +1,20 @@
+{
+  "name": "bokal-sourage",
+  "version": "0.0.1",
+  "description": "localStorage manager. get/set/wipe/remove/watch values, subscribe/publish messages in scoped namespace.",
+  "keywords": ["localStorage", "watch", "subscribe", "publish", "scoped", "manager"],
+  "main": "bokalSourage.js",
+  "scripts": {
+    "test": "echo \"No test specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ish-/bokalSourage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ish-/bokalSourage/issues"
+  },
+  "homepage": "https://github.com/ish-/bokalSourage#readme"
+}
