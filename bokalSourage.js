@@ -75,6 +75,6 @@ export default class BokalSourage {
   }
 
   publish (name, data) {
-    return this.set(`message:${ name }`, JSON.stringify(data));
+    return this.set(`message:${ name }`, data === undefined ? null : JSON.stringify(data));
   }
 }
