@@ -14,7 +14,7 @@ export default class BokalSourage {
     this._watchingInited = true;
     window.addEventListener('storage', (e) => {
       const { key, newValue } = e;
-      if (!~key.indexOf(this.prefix))
+      if (typeof key !== 'string' || !~key.indexOf(this.prefix))
         return;
 
       const name = key.replace(this.prefix, '');
@@ -22,7 +22,7 @@ export default class BokalSourage {
       try {
         data = JSON.parse(newValue);
       } catch (e) {
-        console.warn(`bokalSourage: can't parse event data for "${ name }"`);
+        console.warn(`bokalSourage: can't parse event data for "${ name }"="${ newValue }"`);
         return;
       }
 
