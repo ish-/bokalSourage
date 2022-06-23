@@ -4,13 +4,27 @@ export default class BokalSourage {
   constructor (prefix) {
     this._cbs = {};
     this.prefix = prefix;
+    this._watchingInited = false;
+  }
 
+  _initWatching () {
+    if (this._watchingInited)
+      return;
+
+    this._watchingInited = true;
     window.addEventListener('storage', (e) => {
       const { key, newValue } = e;
-      if (!~key.indexOf(this.prefix)) return;
+      if (!~key.indexOf(this.prefix))
+        return;
 
-      const data = JSON.parse(newValue);
       const name = key.replace(this.prefix, '');
+      let data;
+      try {
+        data = JSON.parse(newValue);
+      } catch (e) {
+        console.warn(`bokalSourage: can't parse event data for "${ name }"`);
+        return;
+      }
 
       const cbs = this._cbs[name];
       if (!cbs) return;
@@ -55,6 +69,8 @@ export default class BokalSourage {
   }
 
   watch (name, cb) {
+    this._initWatching();
+
     const cbs = this._cbs[name];
     if (!cbs) this._cbs[name] = [cb];
     else cbs.push(cb);
