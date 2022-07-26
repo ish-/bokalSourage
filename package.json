@@ -1,6 +1,6 @@
 {
   "name": "bokal-sourage",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "type": "module",
   "sideEffects": false,
   "description": "localStorage manager with JSON parse/stringify serialization. get/set/watch/wipe values, subscribe/publish messages in scoped namespace.",
