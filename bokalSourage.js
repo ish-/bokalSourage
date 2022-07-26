@@ -1,7 +1,9 @@
-const ls = window.localStorage;
+let ls;
 
 export default class BokalSourage {
   constructor (prefix) {
+    if (!ls)
+      ls = window.localStorage;
     this._cbs = {};
     this.prefix = prefix;
     this._watchingInited = false;
@@ -12,25 +14,30 @@ export default class BokalSourage {
       return;
 
     this._watchingInited = true;
-    window.addEventListener('storage', (e) => {
-      const { key, newValue } = e;
-      if (typeof key !== 'string' || !~key.indexOf(this.prefix))
-        return;
+    this.onStorage = this.onStorage.bind(this);
+    window.addEventListener('storage', this.onStorage);
+  }
 
-      const name = key.replace(this.prefix, '');
-      let data;
-      try {
-        data = JSON.parse(newValue);
-      } catch (e) {
-        console.warn(`bokalSourage: can't parse event data for "${ name }"="${ newValue }"`);
-        return;
-      }
+  onStorage (e) {
+    const { key, newValue } = e;
+    if (typeof key !== 'string' || !~key.indexOf(this.prefix))
+      return;
 
-      const cbs = this._cbs[name];
-      if (!cbs) return;
+    const name = key.replace(this.prefix, '');
+    let data;
+    console.log('newValue :>> ', newValue);
+    try {
+      data = JSON.parse(newValue);
+    } catch (e) {
+      console.warn(`bokalSourage: can't parse event data for "${ name }"="${ newValue }"`);
+      return;
+    }
+    console.log('data :>> ', data);
 
-      cbs.forEach(cb => cb(data));
-    });
+    const cbs = this._cbs[name];
+    if (!cbs) return;
+
+    cbs.forEach(cb => cb(data));
   }
 
   has (key) {
@@ -91,6 +98,11 @@ export default class BokalSourage {
   }
 
   publish (name, data) {
-    return this.set(`message:${ name }`, data === undefined ? null : JSON.stringify(data));
+    return this.set(`message:${ name }`, data === undefined ? null : data);
+  }
+
+  dispose () {
+    this._cbs = {};
+    window.removeEventListener('storage', this.onStorage);
   }
 }

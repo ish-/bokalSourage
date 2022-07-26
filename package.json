@@ -1,6 +1,8 @@
 {
   "name": "bokal-sourage",
   "version": "0.0.5",
+  "type": "module",
+  "sideEffects": false,
   "description": "localStorage manager with JSON parse/stringify serialization. get/set/watch/wipe values, subscribe/publish messages in scoped namespace.",
   "keywords": [
     "localStorage",
@@ -13,7 +15,7 @@
   ],
   "main": "bokalSourage.js",
   "scripts": {
-    "test": "echo \"No test specified\""
+    "test": "node --experimental-vm-modules $(npm bin)/jest"
   },
   "repository": {
     "type": "git",
@@ -24,5 +26,16 @@
   "bugs": {
     "url": "https://github.com/ish-/bokalSourage/issues"
   },
-  "homepage": "https://github.com/ish-/bokalSourage#readme"
+  "homepage": "https://github.com/ish-/bokalSourage#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.18.9",
+    "jest": "^28.1.3",
+    "jest-localstorage-mock": "^2.4.21",
+    "tiny-emitter": "^2.1.0"
+  },
+  "jest": {
+    "setupFiles": [
+      "jest-localstorage-mock"
+    ]
+  }
 }
