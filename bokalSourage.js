@@ -25,14 +25,12 @@ export default class BokalSourage {
 
     const name = key.replace(this.prefix, '');
     let data;
-    console.log('newValue :>> ', newValue);
     try {
       data = JSON.parse(newValue);
     } catch (e) {
       console.warn(`bokalSourage: can't parse event data for "${ name }"="${ newValue }"`);
       return;
     }
-    console.log('data :>> ', data);
 
     const cbs = this._cbs[name];
     if (!cbs) return;
@@ -58,6 +56,21 @@ export default class BokalSourage {
     } catch (e) {
       return null;
     }
+  }
+
+  ref (key) {
+    return new BokalSourageRef(this, key);
+  }
+
+  proxy () {
+    return new Proxy (this, {
+      get (instance, prop, receiver) {
+        return instance.get(prop);
+      },
+      set (instance, prop, value) {
+        return instance.set(prop, value);
+      }
+    });
   }
 
   wipe () {
@@ -105,4 +118,14 @@ export default class BokalSourage {
     this._cbs = {};
     window.removeEventListener('storage', this.onStorage);
   }
+}
+
+class BokalSourageRef {
+  constructor (instance, key) {
+    this.instance = instance;
+    this.key = key;
+  }
+
+  get (key) { return this.instance.get(key) }
+  set (key, value) { return this.instance.set(key, value) }
 }

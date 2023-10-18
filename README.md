@@ -35,4 +35,14 @@ const onEggBoiled = dur => console.log(`Egg was boiled for ${ dur / 6e4 }m`);
 bs.subscribe('egg:boiled', onEggBoiled)
 bs.publish('egg:boiled', 18e4); // any window
 // 'Egg was boiled for 3m'
+
+// ref() creates reference to the specified key with getter and setter
+const ref = bs.ref('USE_ME');
+ref.set('like this');
+ref.get(); // 'like this'
+
+// proxy() creates Proxy object reflecting all bokalSourage keys
+const proxy = bs.proxy();
+proxy.HELLO = 'world';
+proxy.HELLO // 'world'
 ```

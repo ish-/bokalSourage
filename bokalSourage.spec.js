@@ -26,6 +26,18 @@ describe('BokalSourage', () => {
     expect(bs.get('testData')).toBe(null);
   });
 
+  it('should create ref() object with get()/set() of "key"', () => {
+    const ref = bs.ref('testData');
+    ref.set(testData);
+    expect(ref.get()).toStrictEqual(testData);
+  });
+
+  it('should create proxy() reflecting localStorage properties', () => {
+    const proxy = bs.proxy();
+    proxy.testData = testData;
+    expect(proxy.testData).toStrictEqual(testData);
+  });
+
   it('should wipe() all keys in scope', () => {
     bs.set('testData', testData);
     bs.set('testData2', testData);
