@@ -126,6 +126,6 @@ class BokalSourageRef {
     this.key = key;
   }
 
-  get (key) { return this.instance.get(key) }
-  set (key, value) { return this.instance.set(key, value) }
+  get () { return this.instance.get(this.key) }
+  set (value) { return this.instance.set(this.key, value) }
 }
